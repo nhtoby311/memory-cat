@@ -1,3 +1,4 @@
+import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import styles from "./Loading.module.css";
 
@@ -19,6 +20,8 @@ export default function Loading() {
         </div>
         <div className={`g-container ${styles["percentage-cont"]}`}>
           <span>88%</span>
+          <Button title="Single Player" />
+          <Button title="Multi Player" />
         </div>
       </div>
     </>
