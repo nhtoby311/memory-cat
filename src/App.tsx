@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styles from "./app.module.css";
 import { AnimatePresence } from "framer-motion";
+import Loading from "./pages/Loading/Loading";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<></>} />
-              <Route path="about" element={<></>} />
+              <Route path="loading" element={<Loading />} />
             </Routes>
           </AnimatePresence>
         </BrowserRouter>
