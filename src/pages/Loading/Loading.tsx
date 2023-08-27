@@ -44,6 +44,8 @@ export default function Loading() {
   const firstCard = useStore((state) => state.firstCard);
   const secondCard = useStore((state) => state.secondCard);
 
+  const gameMode = useStore((state) => state.currentGameMode);
+
   const resetCardClicks = useStore((state) => state.resetCardClicks);
 
   useEffect(() => {

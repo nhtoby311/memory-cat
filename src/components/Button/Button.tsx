@@ -6,5 +6,9 @@ type Props = {
 };
 
 export default function Button({ onClickCB, title = "Test" }: Props) {
-  return <button className={styles.container}>{title}</button>;
+  return (
+    <button className={styles.container} onClick={onClickCB}>
+      {title}
+    </button>
+  );
 }
