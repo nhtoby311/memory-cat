@@ -3,50 +3,17 @@ import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import styles from "./Loading.module.css";
 import useStore from "../../store/store";
-
-const MOCK_CARDS = [
-  {
-    id: 1,
-    url: "https://picsum.photos/id/1/200/300",
-    isFlipped: false,
-    isMatched: false,
-  },
-  {
-    id: 2,
-    url: "https://picsum.photos/id/2/200/300",
-    isFlipped: false,
-    isMatched: false,
-  },
-
-  {
-    id: 3,
-    url: "https://picsum.photos/id/1/200/300",
-    isFlipped: false,
-    isMatched: false,
-  },
-];
+import { useCardTutorial } from "../../hooks/useCardGame";
 
 export default function Loading() {
   const [loadingVal, setLoadingVal] = useState(0);
-  const [disabledClick, setDisabledClick] = useState(false);
 
   const loading = useStore((state) => state.currentLoading);
   const setCurrentLoading = useStore((state) => state.setCurrentLoading);
 
   const setGameMode = useStore((state) => state.setGameMode);
 
-  const cards = useStore((state) => state.cards);
-
-  const setCards = useStore((state) => state.setCards);
-
-  const handleCardClick = useStore((state) => state.handleCardClick);
-
-  const firstCard = useStore((state) => state.firstCard);
-  const secondCard = useStore((state) => state.secondCard);
-
-  const gameMode = useStore((state) => state.currentGameMode);
-
-  const resetCardClicks = useStore((state) => state.resetCardClicks);
+  const { onClickCard, cards } = useCardTutorial();
 
   useEffect(() => {
     //Increase loading by 20 every 1 second, until it reaches 100
@@ -63,37 +30,6 @@ export default function Loading() {
     setCurrentLoading(loadingVal);
   }, [loadingVal]);
 
-  //Set Tutorial decks
-  useEffect(() => {
-    setCards(MOCK_CARDS);
-  }, []);
-
-  //Side effects on every clicks
-  useEffect(() => {
-    if (firstCard && secondCard) {
-      setDisabledClick(true);
-      if (firstCard.id === secondCard.id) {
-        return;
-      }
-      if (firstCard.url === secondCard.url) {
-        const newCards = cards.map((card) => {
-          if (card.url === firstCard.url) {
-            return { ...card, isMatched: true };
-          }
-          return card;
-        });
-        setCards(newCards);
-        setDisabledClick(false);
-        resetCardClicks();
-      } else {
-        setTimeout(() => {
-          setDisabledClick(false);
-          resetCardClicks();
-        }, 1000);
-      }
-    }
-  }, [firstCard, secondCard]);
-
   return (
     <>
       <div></div>
@@ -103,13 +39,7 @@ export default function Loading() {
             <Card
               key={index}
               onClickCB={() => {
-                if (disabledClick) return;
-                const newCards = cards.map((c) =>
-                  c.id === card.id ? { ...c, isFlipped: true } : c
-                );
-
-                setCards(newCards);
-                handleCardClick(card);
+                onClickCard(card);
               }}
               active={card.isFlipped || card.isMatched}
               url={card.url}

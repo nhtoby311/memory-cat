@@ -4,7 +4,7 @@ import { StoreState } from "../store";
 
 export type GAMEMODE = "single" | "multi" | null;
 
-const MOCK_CARDS = [
+export const MOCK_CARDS = [
   {
     id: 1,
     url: "https://picsum.photos/id/1/200/300",
@@ -70,11 +70,14 @@ export type GameState = {
   cards: Card[];
   setCards: (cards: Card[]) => void;
   firstCard: Card | null;
-  setFirstCard: (card: Card) => void;
+  setFirstCard: (card: Card | null) => void;
   secondCard: Card | null;
-  setSecondCard: (card: Card) => void;
+  setSecondCard: (card: Card | null) => void;
   handleCardClick: (card: Card) => void;
   resetCardClicks: () => void;
+  resetCardTutorial: () => void;
+  tutorialCards: Card[];
+  setTutorialCards: (cards: Card[]) => void;
 };
 
 export const createGameSlice: StateCreator<StoreState, [], [], GameState> = (
@@ -88,9 +91,9 @@ export const createGameSlice: StateCreator<StoreState, [], [], GameState> = (
   cards: MOCK_CARDS,
   setCards: (cards: Card[]) => set({ cards }),
   firstCard: null,
-  setFirstCard: (card: Card) => set({ firstCard: card }),
+  setFirstCard: (card: Card | null) => set({ firstCard: card }),
   secondCard: null,
-  setSecondCard: (card: Card) => set({ secondCard: card }),
+  setSecondCard: (card: Card | null) => set({ secondCard: card }),
   handleCardClick: (card: Card) => {
     if (get().firstCard) {
       get().setSecondCard(card);
@@ -106,4 +109,19 @@ export const createGameSlice: StateCreator<StoreState, [], [], GameState> = (
 
     set({ firstCard: null, secondCard: null, cards: resetFlippedCards });
   },
+
+  resetCardTutorial: () => {
+    const resetFlippedCards = get().tutorialCards.map((card) => ({
+      ...card,
+      isFlipped: false,
+    }));
+
+    set({
+      firstCard: null,
+      secondCard: null,
+      tutorialCards: resetFlippedCards,
+    });
+  },
+  tutorialCards: [],
+  setTutorialCards: (cards: Card[]) => set({ tutorialCards: cards }),
 });
