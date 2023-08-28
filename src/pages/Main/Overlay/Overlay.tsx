@@ -5,7 +5,7 @@ export default function Overlay() {
     <div className={styles.container}>
       <div className={styles.top}>
         <div>asd</div>
-        <div>right</div>
+        <div>00:20</div>
       </div>
 
       <div className={styles.middle}>

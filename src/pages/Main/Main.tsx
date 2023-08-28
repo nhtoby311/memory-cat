@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, stagger, useAnimate } from "framer-motion";
 import Modal from "../../components/Modal/Modal";
 import Loading from "../Loading/Loading";
 import { useEffect, useState } from "react";
@@ -47,22 +47,40 @@ function MainGame() {
   const cards = useStore((state) => state.cards);
   const { onClickCard, setCards } = useCardGame();
 
+  const [scope, animate] = useAnimate();
+
+  useEffect(() => {
+    animate(
+      ".card-stagger",
+      {
+        opacity: [0, 1],
+        y: [30, 0],
+      },
+      {
+        duration: 0.2,
+        delay: stagger(0.1, { startDelay: 0.15 }),
+      }
+    );
+  }, []);
+
   useEffect(() => {
     setCards(MOCK_CARDS);
   }, []);
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={styles.container + " g-container"}>
+        <div className={styles.container + " g-container"} ref={scope}>
           {cards.map((card) => (
-            <Card
-              key={card.id}
-              onClickCB={() => {
-                onClickCard(card);
-              }}
-              active={card.isFlipped || card.isMatched}
-              url={card.url}
-            />
+            <motion.div className="card-stagger">
+              <Card
+                key={card.id}
+                onClickCB={() => {
+                  onClickCard(card);
+                }}
+                active={card.isFlipped || card.isMatched}
+                url={card.url}
+              />
+            </motion.div>
           ))}
         </div>
       </div>
