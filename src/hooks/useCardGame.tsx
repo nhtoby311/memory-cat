@@ -52,6 +52,7 @@ export function useCardGame() {
     if (firstCard && secondCard) {
       setDisabledClick(true);
       if (firstCard.id === secondCard.id) {
+        setDisabledClick(false);
         return;
       }
       if (firstCard.url === secondCard.url) {
@@ -120,6 +121,7 @@ export function useCardTutorial() {
     if (firstCard && secondCard) {
       setDisabledClick(true);
       if (firstCard.id === secondCard.id) {
+        setDisabledClick(false);
         return;
       }
       if (firstCard.url === secondCard.url) {

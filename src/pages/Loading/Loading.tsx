@@ -14,7 +14,6 @@ export default function Loading() {
   const setGameMode = useStore((state) => state.setGameMode);
 
   const { onClickCard, cards } = useCardTutorial();
-
   useEffect(() => {
     //Increase loading by 20 every 1 second, until it reaches 100
     const interval = setInterval(() => {
