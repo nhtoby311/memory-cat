@@ -9,5 +9,5 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  gap: 50px;
+  gap: min(3vw, 50px);
 }

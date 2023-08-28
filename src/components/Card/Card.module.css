@@ -1,8 +1,14 @@
 .container {
   display: flex;
   position: relative;
-  height: 267px;
-  width: 189px;
+  height: 20vw;
+  width: 15vw;
+
+  min-height: 100px;
+  min-width: 75px;
+
+  max-height: 200px;
+  max-width: 150px;
 
   perspective: 500px;
   cursor: pointer;
