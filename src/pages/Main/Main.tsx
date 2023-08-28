@@ -8,10 +8,40 @@ import Overlay from "./Overlay/Overlay";
 import styles from "./Main.module.css";
 import Card from "../../components/Card/Card";
 import { useCardGame } from "../../hooks/useCardGame";
-import { MOCK_CARDS } from "../../store/slices/gameSlice";
+import useQueryCatImages from "../../hooks/useQueryCatImages";
+import usePrevious from "../../hooks/usePrevious";
 
 export default function Main() {
   const gameMode = useStore((state) => state.currentGameMode);
+  const setCards = useStore((state) => state.setCards);
+
+  const { isLoading, error, data, isFetching } = useQueryCatImages();
+
+  useEffect(() => {
+    if (data) {
+      const fomatData = data.map((item: any) => {
+        return {
+          id: item.id,
+          url: item.url,
+          isFlipped: false,
+          isMatched: false,
+        };
+      });
+      const cloneData = fomatData.map((item: any) => {
+        return {
+          id: item.id + "cloned",
+          url: item.url,
+          isFlipped: false,
+          isMatched: false,
+        };
+      });
+
+      const suffledData = fomatData
+        .concat(cloneData)
+        .sort(() => Math.random() - 0.5);
+      setCards(suffledData);
+    }
+  }, [data]);
 
   return (
     <>
@@ -44,36 +74,39 @@ export default function Main() {
 }
 
 function MainGame() {
-  const cards = useStore((state) => state.cards);
-  const { onClickCard, setCards } = useCardGame();
+  const { onClickCard, cards } = useCardGame();
 
   const [scope, animate] = useAnimate();
 
-  useEffect(() => {
-    animate(
-      ".card-stagger",
-      {
-        opacity: [0, 1],
-        y: [30, 0],
-      },
-      {
-        duration: 0.2,
-        delay: stagger(0.1, { startDelay: 0.15 }),
-      }
-    );
-  }, []);
+  const previousCards = usePrevious(cards);
 
   useEffect(() => {
-    setCards(MOCK_CARDS);
-  }, []);
+    if (previousCards && cards.length !== previousCards.length) {
+      //   console.log(
+      //     "cards.length !== previousCards?.length",
+      //     cards.length,
+      //     previousCards?.length
+      //   );
+      animate(
+        ".card-stagger",
+        {
+          opacity: [0, 1],
+          y: [30, 0],
+        },
+        {
+          duration: 0.2,
+          delay: stagger(0.1, { startDelay: 0.15 }),
+        }
+      );
+    }
+  }, [cards]);
   return (
     <>
       <div className={styles.wrapper}>
         <div className={styles.container + " g-container"} ref={scope}>
-          {cards.map((card) => (
-            <motion.div className="card-stagger">
+          {cards.map((card, ind) => (
+            <motion.div className="card-stagger" key={ind}>
               <Card
-                key={card.id}
                 onClickCB={() => {
                   onClickCard(card);
                 }}

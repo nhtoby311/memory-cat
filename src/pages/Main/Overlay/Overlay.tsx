@@ -8,7 +8,7 @@ export default function Overlay() {
         <div></div>
         <div className={styles.display}>
           <p className={styles.currentCounter}>00:20</p>
-          <p className={styles.highCounter}>00:12</p>
+          <p className={styles.highCounter}>Best 00:12</p>
         </div>
       </div>
 

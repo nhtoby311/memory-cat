@@ -88,7 +88,7 @@ export const createGameSlice: StateCreator<StoreState, [], [], GameState> = (
   setGameMode: (gameMode: GAMEMODE) => set({ currentGameMode: gameMode }),
   currentLoading: 0,
   setCurrentLoading: (currentLoading: number) => set({ currentLoading }),
-  cards: MOCK_CARDS,
+  cards: [],
   setCards: (cards: Card[]) => set({ cards }),
   firstCard: null,
   setFirstCard: (card: Card | null) => set({ firstCard: card }),

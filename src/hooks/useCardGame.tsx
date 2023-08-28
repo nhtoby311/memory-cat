@@ -74,7 +74,7 @@ export function useCardGame() {
     }
   }, [firstCard, secondCard]);
 
-  return { onClickCard, setCards };
+  return { onClickCard, setCards, cards };
 }
 
 export function useCardTutorial() {
