@@ -16,7 +16,7 @@ export default function Main() {
   return (
     <>
       <AnimatePresence mode="wait">
-        {gameMode === null ? (
+        {gameMode !== null ? (
           <motion.div
             key={gameMode}
             initial={{ opacity: 0 }}
