@@ -10,6 +10,7 @@ import Card from "../../components/Card/Card";
 import { useCardGame } from "../../hooks/useCardGame";
 import useQueryCatImages from "../../hooks/useQueryCatImages";
 import usePrevious from "../../hooks/usePrevious";
+import EndScreen from "./EndScreen/EndScreen";
 
 export default function Main() {
   const gameMode = useStore((state) => state.currentGameMode);
@@ -81,25 +82,6 @@ function MainGame() {
 
   const endGame = useStore((state) => state.endGame);
   const winner = useStore((state) => state.winnerData as any);
-  const setWinner = useStore((state) => state.setWinnerData);
-
-  const player1Score = useStore((state) => state.player1Score);
-  const player2Score = useStore((state) => state.player2Score);
-
-  useEffect(() => {
-    if (endGame) {
-      if (gameMode === "single") {
-        setWinner({ time: 20 });
-      } else if (gameMode === "multi") {
-        const playerWinner =
-          player1Score > player2Score ? "player1" : "player2";
-        setWinner({
-          player: playerWinner,
-          score: Math.max(player1Score, player2Score),
-        });
-      }
-    }
-  }, [endGame]);
 
   // const previousCards = usePrevious(cards);
 
@@ -139,18 +121,7 @@ function MainGame() {
 
       <Overlay />
 
-      {endGame && (
-        <div>
-          EndGame
-          {gameMode === "single" ? (
-            <p>Time: {winner?.time}</p>
-          ) : (
-            <p>
-              Winner: {winner?.player} with score {winner?.score}
-            </p>
-          )}
-        </div>
-      )}
+      {endGame && <EndScreen />}
     </>
   );
 }

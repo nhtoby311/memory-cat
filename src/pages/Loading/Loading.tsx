@@ -70,8 +70,7 @@ export default function Loading() {
   }, [cards]);
 
   return (
-    <>
-      <div></div>
+    <div className={styles.wrapper}>
       <div className={styles.container}>
         <div className={`g-container ${styles["cards-cont"]}`}>
           {tutorialCards.map((card, index) => (
@@ -127,6 +126,6 @@ export default function Loading() {
           </AnimatePresence>
         </div>
       </div>
-    </>
+    </div>
   );
 }
