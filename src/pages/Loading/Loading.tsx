@@ -3,38 +3,69 @@ import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import styles from "./Loading.module.css";
 import useStore from "../../store/store";
-import { useCardTutorial } from "../../hooks/useCardGame";
+import { useCardGame, useCardTutorial } from "../../hooks/useCardGame";
 
 export default function Loading() {
-  const [loadingVal, setLoadingVal] = useState(0);
-
   const loading = useStore((state) => state.currentLoading);
   const setCurrentLoading = useStore((state) => state.setCurrentLoading);
 
   const setGameMode = useStore((state) => state.setGameMode);
 
-  const { onClickCard, cards } = useCardTutorial();
-  useEffect(() => {
-    //Increase loading by 20 every 1 second, until it reaches 100
-    const interval = setInterval(() => {
-      setLoadingVal((prev) => {
-        if (prev < 100) return prev + 20;
-        return 100;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  const { onClickCard, cards: tutorialCards } = useCardTutorial();
+
+  const { cards } = useCardGame();
+
+  // useEffect(() => {
+  //   //Increase loading by 20 every 1 second, until it reaches 100
+  //   const interval = setInterval(() => {
+  //     setLoadingVal((prev) => {
+  //       if (prev < 100) return prev + 20;
+  //       return 100;
+  //     });
+  //   }, 1000);
+  //   return () => clearInterval(interval);
+  // }, []);
+
+  // useEffect(() => {
+  //   setCurrentLoading(loadingVal);
+  // }, [loadingVal]);
 
   useEffect(() => {
-    setCurrentLoading(loadingVal);
-  }, [loadingVal]);
+    if (!cards || cards.length === 0) return;
+
+    let loadedCount = 0;
+    const totalCount = cards.length;
+
+    // Load image and return a promise
+    function preloadImage(url: string) {
+      return new Promise<void>((resolve) => {
+        const img = new Image();
+        img.onload = img.onerror = () => {
+          loadedCount++;
+          // Calculate progress
+          const currentProgress = (loadedCount / totalCount) * 100;
+          setCurrentLoading(Math.floor(currentProgress)); // Update progress state
+          resolve();
+        };
+        img.src = url;
+      });
+    }
+
+    // Map over the cards to preload images
+    const preloadPromises = cards.map((card) => preloadImage(card.url));
+
+    // Using Promise.all to know when all images have been processed
+    Promise.all(preloadPromises).then(() => {
+      console.log("All images processed");
+    });
+  }, [cards]);
 
   return (
     <>
       <div></div>
       <div className={styles.container}>
         <div className={`g-container ${styles["cards-cont"]}`}>
-          {cards.map((card, index) => (
+          {tutorialCards.map((card, index) => (
             <Card
               key={index}
               onClickCB={() => {

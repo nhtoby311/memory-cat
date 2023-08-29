@@ -46,7 +46,7 @@ export default function Main() {
   return (
     <>
       <AnimatePresence mode="wait">
-        {gameMode !== null ? (
+        {gameMode === null ? (
           <motion.div
             key={gameMode}
             initial={{ opacity: 0 }}
@@ -75,13 +75,18 @@ export default function Main() {
 
 function MainGame() {
   const { onClickCard, cards } = useCardGame();
+  const gameMode = useStore((state) => state.currentGameMode);
 
   const [scope, animate] = useAnimate();
 
-  const previousCards = usePrevious(cards);
+  // const previousCards = usePrevious(cards);
 
   useEffect(() => {
-    if (previousCards && cards.length !== previousCards.length) {
+    // console.log("game", gameMode);
+    // console.log("previousCards", previousCards);
+    // console.log("cards", cards);
+    if (gameMode !== null) {
+      //console.log("trigger");
       //   console.log(
       //     "cards.length !== previousCards?.length",
       //     cards.length,
@@ -99,7 +104,8 @@ function MainGame() {
         }
       );
     }
-  }, [cards]);
+  }, [gameMode]);
+
   return (
     <>
       <div className={styles.wrapper}>
