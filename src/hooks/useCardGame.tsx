@@ -37,6 +37,19 @@ export function useCardGame() {
 
   const resetCardClicks = useStore((state) => state.resetCardClicks);
 
+  const endGame = useStore((state) => state.endGame);
+  const setEndGame = useStore((state) => state.setEndGame);
+
+  //Multiplayer
+  const gameMode = useStore((state) => state.currentGameMode);
+  const currentPlayer = useStore((state) => state.currentPlayerTurn);
+  const player1Score = useStore((state) => state.player1Score);
+  const player2Score = useStore((state) => state.player2Score);
+
+  const setPlayer1Score = useStore((state) => state.setPlayer1Score);
+  const setPlayer2Score = useStore((state) => state.setPlayer2Score);
+  const setCurrentPlayerTurn = useStore((state) => state.setCurrentPlayerTurn);
+
   const onClickCard = (card: any) => {
     if (disabledClick) return;
     const newCards = cards.map((c) =>
@@ -51,28 +64,56 @@ export function useCardGame() {
   useEffect(() => {
     if (firstCard && secondCard) {
       setDisabledClick(true);
-      if (firstCard.id === secondCard.id) {
-        setDisabledClick(false);
-        return;
-      }
-      if (firstCard.url === secondCard.url) {
-        const newCards = cards.map((card) => {
-          if (card.url === firstCard.url) {
-            return { ...card, isMatched: true };
-          }
-          return card;
-        });
-        setCards(newCards);
-        setDisabledClick(false);
-        resetCardClicks();
-      } else {
-        setTimeout(() => {
+      if (!endGame) {
+        if (firstCard.id === secondCard.id) {
+          setDisabledClick(false);
+          return;
+        }
+        if (firstCard.url === secondCard.url) {
+          const newCards = cards.map((card) => {
+            if (card.url === firstCard.url) {
+              return { ...card, isMatched: true };
+            }
+            return card;
+          });
+          setCards(newCards);
           setDisabledClick(false);
           resetCardClicks();
-        }, 1000);
+
+          //If Multiplayer, add score to player
+          if (gameMode === "multi") {
+            if (currentPlayer === "player1") {
+              setPlayer1Score(player1Score + 1);
+            } else {
+              setPlayer2Score(player2Score + 1);
+            }
+          }
+        } else {
+          //If not match, flip back the cards
+          setTimeout(() => {
+            setDisabledClick(false);
+            resetCardClicks();
+            //If Multiplayer, change the turn
+            if (gameMode === "multi") {
+              setCurrentPlayerTurn(
+                currentPlayer === "player1" ? "player2" : "player1"
+              );
+            }
+          }, 1000);
+        }
       }
     }
-  }, [firstCard, secondCard]);
+  }, [firstCard, secondCard, endGame]);
+
+  useEffect(() => {
+    if (cards && cards.length > 0) {
+      //Check EndGame, but quite expensive
+      const isEndGame = cards.every((card) => card.isMatched === true);
+      if (isEndGame) {
+        setEndGame(true);
+      }
+    }
+  }, [cards]);
 
   return { onClickCard, setCards, cards };
 }

@@ -78,6 +78,21 @@ export type GameState = {
   resetCardTutorial: () => void;
   tutorialCards: Card[];
   setTutorialCards: (cards: Card[]) => void;
+
+  currentPlayerTurn: "player1" | "player2" | null;
+  setCurrentPlayerTurn: (player: "player1" | "player2" | null) => void;
+  player1Score: number;
+  setPlayer1Score: (score: number) => void;
+  player2Score: number;
+  setPlayer2Score: (score: number) => void;
+
+  endGame: boolean;
+  setEndGame: (endGame: boolean) => void;
+
+  winnerData: { time: number } | { player: string; score: number } | null;
+  setWinnerData: (
+    winnerData: { time: number } | { player: string; score: number } | null
+  ) => void;
 };
 
 export const createGameSlice: StateCreator<StoreState, [], [], GameState> = (
@@ -124,4 +139,20 @@ export const createGameSlice: StateCreator<StoreState, [], [], GameState> = (
   },
   tutorialCards: [],
   setTutorialCards: (cards: Card[]) => set({ tutorialCards: cards }),
+
+  currentPlayerTurn: "player1",
+  setCurrentPlayerTurn: (player: "player1" | "player2" | null) =>
+    set({ currentPlayerTurn: player }),
+  player1Score: 0,
+  setPlayer1Score: (score: number) => set({ player1Score: score }),
+  player2Score: 0,
+  setPlayer2Score: (score: number) => set({ player2Score: score }),
+
+  endGame: false,
+  setEndGame: (endGame: boolean) => set({ endGame }),
+
+  winnerData: null,
+  setWinnerData: (
+    winnerData: { time: number } | { player: string; score: number } | null
+  ) => set({ winnerData }),
 });

@@ -79,19 +79,32 @@ function MainGame() {
 
   const [scope, animate] = useAnimate();
 
+  const endGame = useStore((state) => state.endGame);
+  const winner = useStore((state) => state.winnerData as any);
+  const setWinner = useStore((state) => state.setWinnerData);
+
+  const player1Score = useStore((state) => state.player1Score);
+  const player2Score = useStore((state) => state.player2Score);
+
+  useEffect(() => {
+    if (endGame) {
+      if (gameMode === "single") {
+        setWinner({ time: 20 });
+      } else if (gameMode === "multi") {
+        const playerWinner =
+          player1Score > player2Score ? "player1" : "player2";
+        setWinner({
+          player: playerWinner,
+          score: Math.max(player1Score, player2Score),
+        });
+      }
+    }
+  }, [endGame]);
+
   // const previousCards = usePrevious(cards);
 
   useEffect(() => {
-    // console.log("game", gameMode);
-    // console.log("previousCards", previousCards);
-    // console.log("cards", cards);
     if (gameMode !== null) {
-      //console.log("trigger");
-      //   console.log(
-      //     "cards.length !== previousCards?.length",
-      //     cards.length,
-      //     previousCards?.length
-      //   );
       animate(
         ".card-stagger",
         {
@@ -125,6 +138,19 @@ function MainGame() {
       </div>
 
       <Overlay />
+
+      {endGame && (
+        <div>
+          EndGame
+          {gameMode === "single" ? (
+            <p>Time: {winner?.time}</p>
+          ) : (
+            <p>
+              Winner: {winner?.player} with score {winner?.score}
+            </p>
+          )}
+        </div>
+      )}
     </>
   );
 }

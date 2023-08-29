@@ -60,3 +60,46 @@
   align-items: flex-end;
   gap: 5px;
 }
+
+.display[data-player="player1"] {
+  flex-direction: column;
+}
+
+.display[data-player="player2"] {
+  flex-direction: column-reverse;
+}
+
+.playerCont {
+  --color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  color: var(--color);
+  margin-bottom: 15px;
+  opacity: 0.4;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.playerScore {
+  width: 30px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: #1b1b1b;
+  color: var(--color);
+}
+
+.playerCont[data-player="player1"] {
+  --color: #ff5656;
+}
+
+.playerCont[data-player="player2"] {
+  --color: #4160ff;
+}
+
+.playerCont[data-current="true"] {
+  opacity: 1;
+}
