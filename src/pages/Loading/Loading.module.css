@@ -5,6 +5,7 @@
   width: 100%;
   padding: 40px 0;
   gap: 20px;
+  padding-top: 15vh;
 }
 
 .cards-cont {
@@ -42,4 +43,14 @@
 .percentage-cont span {
   font-size: 54px;
   color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .descrip-cont p {
+    font-size: 18px;
+  }
+
+  .percentage-cont {
+    flex-direction: column;
+  }
 }

@@ -4,6 +4,12 @@ import Card from "../../components/Card/Card";
 import styles from "./Loading.module.css";
 import useStore from "../../store/store";
 import { useCardGame, useCardTutorial } from "../../hooks/useCardGame";
+import { AnimatePresence, motion } from "framer-motion";
+
+const FadeInVariant = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
 
 export default function Loading() {
   const loading = useStore((state) => state.currentLoading);
@@ -30,34 +36,37 @@ export default function Loading() {
   //   setCurrentLoading(loadingVal);
   // }, [loadingVal]);
 
+  //Handling asset image loading
   useEffect(() => {
     if (!cards || cards.length === 0) return;
 
-    let loadedCount = 0;
-    const totalCount = cards.length;
+    if (loading < 100) {
+      let loadedCount = 0;
+      const totalCount = cards.length;
 
-    // Load image and return a promise
-    function preloadImage(url: string) {
-      return new Promise<void>((resolve) => {
-        const img = new Image();
-        img.onload = img.onerror = () => {
-          loadedCount++;
-          // Calculate progress
-          const currentProgress = (loadedCount / totalCount) * 100;
-          setCurrentLoading(Math.floor(currentProgress)); // Update progress state
-          resolve();
-        };
-        img.src = url;
+      // Load image and return a promise
+      function preloadImage(url: string) {
+        return new Promise<void>((resolve) => {
+          const img = new Image();
+          img.onload = img.onerror = () => {
+            loadedCount++;
+            // Calculate progress
+            const currentProgress = (loadedCount / totalCount) * 100;
+            setCurrentLoading(Math.floor(currentProgress)); // Update progress state
+            resolve();
+          };
+          img.src = url;
+        });
+      }
+
+      // Map over the cards to preload images
+      const preloadPromises = cards.map((card) => preloadImage(card.url));
+
+      // Using Promise.all to know when all images have been processed
+      Promise.all(preloadPromises).then(() => {
+        console.log("All images processed");
       });
     }
-
-    // Map over the cards to preload images
-    const preloadPromises = cards.map((card) => preloadImage(card.url));
-
-    // Using Promise.all to know when all images have been processed
-    Promise.all(preloadPromises).then(() => {
-      console.log("All images processed");
-    });
   }, [cards]);
 
   return (
@@ -83,24 +92,39 @@ export default function Loading() {
           </p>
         </div>
         <div className={`g-container ${styles["percentage-cont"]}`}>
-          {loading === 100 ? (
-            <>
-              <Button
-                onClickCB={() => {
-                  setGameMode("single");
-                }}
-                title="Single Player"
-              />
-              <Button
-                onClickCB={() => {
-                  setGameMode("multi");
-                }}
-                title="Multi Player"
-              />
-            </>
-          ) : (
-            <span>{loading}%</span>
-          )}
+          <AnimatePresence mode="wait">
+            {loading === 100 ? (
+              <motion.div
+                className={`${styles["percentage-cont"]}`}
+                key="btn"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <Button
+                  onClickCB={() => {
+                    setGameMode("single");
+                  }}
+                  title="Single Player"
+                />
+                <Button
+                  onClickCB={() => {
+                    setGameMode("multi");
+                  }}
+                  title="Multi Player"
+                />
+              </motion.div>
+            ) : (
+              <motion.span
+                key="percent"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                {loading}%
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </>
