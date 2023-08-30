@@ -27,6 +27,7 @@ export default function EndScreen() {
         setWinner({
           player: playerWinner,
           score: Math.max(player1Score, player2Score),
+          draw: player1Score === player2Score ? true : false,
         });
       }
     }
@@ -34,7 +35,7 @@ export default function EndScreen() {
 
   const variantWinnerType = useMemo(() => {
     if (winner) {
-      if (gameMode === "single") {
+      if (gameMode === "single" || winner.draw) {
         return "single";
       } else if (gameMode === "multi") {
         if (winner.player === "player1") {
@@ -54,13 +55,20 @@ export default function EndScreen() {
             <h3 className={styles.complete}>Complete</h3>
             {gameMode === "single" ? (
               <p className={styles.content}>Time: {formatTime(winner?.time)}</p>
+            ) : winner && winner.draw ? (
+              <p className={styles.content}>Draw!</p>
             ) : (
               <p className={styles.content}>{winner?.player} won!</p>
             )}
             <div className={styles.btnCont}>
-              <Button onClickCB={() => {}} title="New Game" />
               <Button
                 onClickCB={() => {}}
+                title="New Game"
+                variants="secondary"
+              />
+              <Button
+                onClickCB={() => {}}
+                variants="secondary"
                 title={gameMode === "multi" ? "Single Player" : "Multiplayer"}
               />
             </div>

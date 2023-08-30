@@ -1,7 +1,8 @@
 .container {
+  --color: #1b1b1b;
   display: flex;
   width: 100%;
-  background: #1b1b1b;
+  background: var(--color);
   border-radius: 100px;
   padding: 15px;
   justify-content: center;
@@ -13,6 +14,14 @@
   position: relative;
 
   transition: background 0.3s ease-in-out;
+}
+
+.container[data-variants="primary"] {
+  --color: #1b1b1b;
+}
+
+.container[data-variants="secondary"] {
+  --color: #131313;
 }
 
 .container:hover {

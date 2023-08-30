@@ -94,9 +94,15 @@ export type GameState = {
   endGame: boolean;
   setEndGame: (endGame: boolean) => void;
 
-  winnerData: { time: number } | { player: string; score: number } | null;
+  winnerData:
+    | { time: number }
+    | { player: string; score: number; draw: boolean }
+    | null;
   setWinnerData: (
-    winnerData: { time: number } | { player: string; score: number } | null
+    winnerData:
+      | { time: number }
+      | { player: string; score: number; draw: boolean }
+      | null
   ) => void;
 };
 
@@ -166,6 +172,9 @@ export const createGameSlice: StateCreator<StoreState, [], [], GameState> = (
 
   winnerData: null,
   setWinnerData: (
-    winnerData: { time: number } | { player: string; score: number } | null
+    winnerData:
+      | { time: number }
+      | { player: string; score: number; draw: boolean }
+      | null
   ) => set({ winnerData }),
 });

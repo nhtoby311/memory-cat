@@ -112,7 +112,8 @@ export default function Loading() {
                 exit={{ opacity: 0 }}
               >
                 Find and match the same pair of cards, by click to flip the card
-                over. Try to find the pair above to continue.
+                over. Try on the set above, or skip by choosing the game mode
+                below.
               </motion.p>
             )}
           </AnimatePresence>
