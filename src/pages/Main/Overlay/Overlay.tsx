@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import MenuSVG from "../../../SVG/MenuSVG";
 import useStore from "../../../store/store";
 import styles from "./Overlay.module.css";
@@ -42,7 +42,18 @@ export default function Overlay() {
         </div>
       </div>
 
-      {menuOpen && <Menu />}
+      <AnimatePresence mode="wait">
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <Menu />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className={styles.middle}>
         <div></div>
         <button
@@ -51,7 +62,14 @@ export default function Overlay() {
             setMenuOpen(!menuOpen);
           }}
         >
-          <MenuSVG color="var(--text-primary)" />
+          <div
+            className={styles.menuIcon}
+            data-active={menuOpen ? "true" : "false"}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </button>
       </div>
     </>
