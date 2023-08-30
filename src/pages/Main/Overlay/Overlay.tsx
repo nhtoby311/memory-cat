@@ -7,42 +7,54 @@ import { useEffect } from "react";
 import { formatTime } from "../../../utils/time";
 import ShuffleSVG from "../../../SVG/ShuffleSVG";
 import HelpSVG from "../../../SVG/HelpSVG";
+import Menu from "../Menu/Menu";
 
 export default function Overlay() {
   const gameMode = useStore((state) => state.currentGameMode);
 
   const newGame = useStore((state) => state.newGame);
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.top}>
-        <div></div>
+  const menuOpen = useStore((state) => state.menuOpen);
+  const setMenuOpen = useStore((state) => state.setMenuOpen);
 
-        {gameMode === "single" ? <SingleDisplay /> : <MultiDisplay />}
+  return (
+    <>
+      <div className={styles.container}>
+        <div className={styles.top}>
+          <div></div>
+
+          {gameMode === "single" ? <SingleDisplay /> : <MultiDisplay />}
+        </div>
+
+        <div className={styles.bottom}>
+          <div
+            className={styles.svgBubble}
+            style={{ pointerEvents: "auto" }}
+            onClick={() => {
+              newGame(gameMode);
+            }}
+          >
+            <ShuffleSVG color="white" />
+          </div>
+          <div className={styles.svgBubble}>
+            <HelpSVG color="white" />
+          </div>
+        </div>
       </div>
 
+      {menuOpen && <Menu />}
       <div className={styles.middle}>
         <div></div>
-        <div className={styles.svgBubble}>
+        <div
+          className={styles.svgBubble}
+          onClick={() => {
+            setMenuOpen(!menuOpen);
+          }}
+        >
           <MenuSVG color="white" />
         </div>
       </div>
-
-      <div className={styles.bottom}>
-        <div
-          className={styles.svgBubble}
-          style={{ pointerEvents: "auto" }}
-          onClick={() => {
-            newGame(gameMode);
-          }}
-        >
-          <ShuffleSVG color="white" />
-        </div>
-        <div className={styles.svgBubble}>
-          <HelpSVG color="white" />
-        </div>
-      </div>
-    </div>
+    </>
   );
 }
 

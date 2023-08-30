@@ -18,9 +18,16 @@
 }
 
 .middle {
+  position: fixed;
+  width: 100%;
+  top: 50%;
+  right: 0;
+  padding: 0 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transform: translateY(-50%);
+  z-index: 9000;
 }
 
 .bottom {
