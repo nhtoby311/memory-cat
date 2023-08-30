@@ -12,6 +12,12 @@
 
   perspective: 500px;
   cursor: pointer;
+
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.container:hover {
+  transform: scale(1.12);
 }
 
 .content {
