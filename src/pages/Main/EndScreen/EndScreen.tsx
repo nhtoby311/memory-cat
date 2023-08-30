@@ -16,6 +16,8 @@ export default function EndScreen() {
 
   const elapsedTime = useStore((state) => state.elapsedTime);
 
+  const newGame = useStore((state) => state.newGame);
+
   useEffect(() => {
     if (endGame) {
       if (gameMode === "single") {
@@ -62,12 +64,16 @@ export default function EndScreen() {
             )}
             <div className={styles.btnCont}>
               <Button
-                onClickCB={() => {}}
+                onClickCB={() => {
+                  newGame(gameMode);
+                }}
                 title="New Game"
                 variants="secondary"
               />
               <Button
-                onClickCB={() => {}}
+                onClickCB={() => {
+                  newGame(gameMode === "multi" ? "single" : "multi");
+                }}
                 variants="secondary"
                 title={gameMode === "multi" ? "Single Player" : "Multiplayer"}
               />

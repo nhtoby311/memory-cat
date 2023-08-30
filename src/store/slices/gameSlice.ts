@@ -104,6 +104,8 @@ export type GameState = {
       | { player: string; score: number; draw: boolean }
       | null
   ) => void;
+
+  newGame: (gameMode: GAMEMODE) => void;
 };
 
 export const createGameSlice: StateCreator<StoreState, [], [], GameState> = (
@@ -177,4 +179,23 @@ export const createGameSlice: StateCreator<StoreState, [], [], GameState> = (
       | { player: string; score: number; draw: boolean }
       | null
   ) => set({ winnerData }),
+
+  newGame: (gameMode) => {
+    const restartMatchedCardsAndShuffled = get()
+      .cards.map((card) => ({ ...card, isMatched: false }))
+      .sort(() => Math.random() - 0.5);
+
+    return set({
+      currentGameMode: gameMode,
+      cards: restartMatchedCardsAndShuffled,
+      firstCard: null,
+      secondCard: null,
+      elapsedTime: 0,
+      currentPlayerTurn: "player1",
+      player1Score: 0,
+      player2Score: 0,
+      endGame: false,
+      winnerData: null,
+    });
+  },
 });

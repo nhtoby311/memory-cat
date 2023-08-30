@@ -9,6 +9,8 @@ import { formatTime } from "../../../utils/time";
 export default function Overlay() {
   const gameMode = useStore((state) => state.currentGameMode);
 
+  const newGame = useStore((state) => state.newGame);
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -25,7 +27,14 @@ export default function Overlay() {
       </div>
 
       <div className={styles.bottom}>
-        <div>Restart Game</div>
+        <div
+          style={{ pointerEvents: "auto" }}
+          onClick={() => {
+            newGame(gameMode);
+          }}
+        >
+          Restart Game
+        </div>
         <div className={styles.svgBubble}>
           <MenuSVG color="white" />
         </div>
@@ -68,6 +77,13 @@ const SingleDisplay = () => {
       }
     }
   }, [endGame]);
+
+  //On reset, which elapsedTime set to 0, restart timer.
+  useEffect(() => {
+    if (elapsedTime === 0) {
+      stopwatch.start();
+    }
+  }, [elapsedTime]);
 
   useEffect(() => {
     setElapsedTime(Math.floor(stopwatch.getElapsedStartedTime() / 1000));
