@@ -14,7 +14,8 @@
   padding: 40px 0;
   gap: 20px;
   padding-top: 15vh;
-  background: #242424;
+  /* background: #242424; */
+  background: var(--color-background);
 }
 
 .cards-cont {
@@ -45,13 +46,13 @@
 
 .descrip-cont p {
   font-size: 31px;
-  color: white;
+  color: var(--text-primary);
   text-align: center;
 }
 
 .percentage-cont span {
   font-size: 54px;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 @media (max-width: 768px) {

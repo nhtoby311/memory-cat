@@ -8,7 +8,7 @@ const HelpSVG = ({ color, className }: SVGProps) => (
     viewBox="0 0 22 22"
   >
     <path
-      stroke={color || "#fff"}
+      stroke={color || "var(text-primary)"}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.5}

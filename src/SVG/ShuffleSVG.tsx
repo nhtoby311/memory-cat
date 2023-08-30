@@ -8,7 +8,7 @@ const ShuffleSVG = ({ color, className }: SVGProps) => (
     className={className}
   >
     <path
-      stroke={color || "#fff"}
+      stroke={color || "var(text-primary)"}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.5}

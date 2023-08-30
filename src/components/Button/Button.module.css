@@ -1,5 +1,5 @@
 .container {
-  --color: #1b1b1b;
+  --color: var(--color-primary);
   display: flex;
   width: 100%;
   background: var(--color);
@@ -10,22 +10,22 @@
   border: none;
   cursor: pointer;
   font-size: 24px;
-  color: white;
+  color: var(--text-primary);
   position: relative;
 
   transition: background 0.3s ease-in-out;
 }
 
 .container[data-variants="primary"] {
-  --color: #1b1b1b;
+  --color: var(--color-primary);
 }
 
 .container[data-variants="secondary"] {
-  --color: #131313;
+  --color: var(--color-quaternary);
 }
 
 .container:hover {
-  background: #fd4b4b;
+  background: var(--color-red);
 }
 
 .container:hover:before {
@@ -39,7 +39,7 @@
   width: calc(100% + 4px);
   height: calc(100% + 4px);
   border-radius: 100px;
-  border: 2px solid #ffffff33;
+  border: 2px solid var(--color-tertiary);
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
 }

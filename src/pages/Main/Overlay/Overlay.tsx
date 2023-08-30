@@ -34,10 +34,10 @@ export default function Overlay() {
               newGame(gameMode);
             }}
           >
-            <ShuffleSVG color="white" />
+            <ShuffleSVG color="var(--text-primary)" />
           </div>
           <div className={styles.svgBubble}>
-            <HelpSVG color="white" />
+            <HelpSVG color="var(--text-primary)" />
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@ export default function Overlay() {
             setMenuOpen(!menuOpen);
           }}
         >
-          <MenuSVG color="white" />
+          <MenuSVG color="var(--text-primary)" />
         </div>
       </div>
     </>

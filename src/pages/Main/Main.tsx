@@ -11,12 +11,22 @@ import { useCardGame } from "../../hooks/useCardGame";
 import useQueryCatImages from "../../hooks/useQueryCatImages";
 import usePrevious from "../../hooks/usePrevious";
 import EndScreen from "./EndScreen/EndScreen";
+import useDarkMode from "../../hooks/useDarkMode";
+import useUpdateEffect from "../../hooks/useUpdateEffect";
 
 export default function Main() {
   const gameMode = useStore((state) => state.currentGameMode);
   const setCards = useStore((state) => state.setCards);
 
   const { isLoading, error, data, isFetching } = useQueryCatImages();
+
+  const setTheme = useStore((state) => state.setCurrentTheme);
+
+  const darkTheme = useDarkMode();
+
+  useUpdateEffect(() => {
+    setTheme(darkTheme);
+  }, [darkTheme]);
 
   useEffect(() => {
     if (data) {

@@ -10,6 +10,8 @@ export default function Menu() {
   const gameMode = useStore((state) => state.currentGameMode);
   const setMenuOpen = useStore((state) => state.setMenuOpen);
 
+  const theme = useStore((state) => state.currentTheme);
+
   return (
     <>
       <Modal>
@@ -39,13 +41,23 @@ export default function Menu() {
                 <div
                   className={styles.colorPicker}
                   data-color="moon"
-                  data-active="true"
+                  data-active={theme.isDarkMode}
+                  onClick={() => {
+                    theme.enable();
+                  }}
                 >
-                  <MoonSVG color="rgb(236, 236, 236)" />
+                  <MoonSVG color="white" />
                 </div>
 
-                <div className={styles.colorPicker} data-color="sun">
-                  <SunSVG color="#131313" />
+                <div
+                  className={styles.colorPicker}
+                  data-color="sun"
+                  data-active={!theme.isDarkMode}
+                  onClick={() => {
+                    theme.disable();
+                  }}
+                >
+                  <SunSVG color="#0f0f0f" />
                 </div>
               </div>
             </div>

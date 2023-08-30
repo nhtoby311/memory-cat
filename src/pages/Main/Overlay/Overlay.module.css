@@ -39,7 +39,7 @@
 .currentCounter {
   font-weight: 400;
   font-size: 54px;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .highCounter {
@@ -53,7 +53,7 @@
   display: flex;
   width: 44px;
   height: 44px;
-  border: 2px solid #ffffff80;
+  border: 2px solid var(--color-secondary);
   border-radius: 50%;
   align-items: center;
   justify-content: center;
@@ -82,7 +82,7 @@
 }
 
 .playerCont {
-  --color: white;
+  --color: var(--text-primary);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -100,16 +100,16 @@
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  background: #1b1b1b;
+  background: var(--color-primary);
   color: var(--color);
 }
 
 .playerCont[data-player="player1"] {
-  --color: #ff5656;
+  --color: var(--color-red);
 }
 
 .playerCont[data-player="player2"] {
-  --color: #4160ff;
+  --color: var(--color-blue);
 }
 
 .playerCont[data-current="true"] {
