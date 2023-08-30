@@ -8,9 +8,20 @@
   font-family: "Sora", sans-serif;
 }
 
+button {
+  background: none;
+  border: 0;
+}
+
 .g-container {
   display: flex;
   width: 75%;
   max-width: 1600px;
   position: relative;
+}
+
+@media (max-width: 768px) {
+  .g-container {
+    width: 100%;
+  }
 }

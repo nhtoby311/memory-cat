@@ -10,4 +10,12 @@
   flex-wrap: wrap;
   width: 100%;
   gap: min(3vw, 50px);
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 15px;
+    padding-top: 120px;
+  }
 }

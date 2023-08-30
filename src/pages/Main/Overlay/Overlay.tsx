@@ -27,7 +27,7 @@ export default function Overlay() {
         </div>
 
         <div className={styles.bottom}>
-          <div
+          <button
             className={styles.svgBubble}
             style={{ pointerEvents: "auto" }}
             onClick={() => {
@@ -35,24 +35,24 @@ export default function Overlay() {
             }}
           >
             <ShuffleSVG color="var(--text-primary)" />
-          </div>
-          <div className={styles.svgBubble}>
+          </button>
+          <button className={styles.svgBubble}>
             <HelpSVG color="var(--text-primary)" />
-          </div>
+          </button>
         </div>
       </div>
 
       {menuOpen && <Menu />}
       <div className={styles.middle}>
         <div></div>
-        <div
+        <button
           className={styles.svgBubble}
           onClick={() => {
             setMenuOpen(!menuOpen);
           }}
         >
           <MenuSVG color="var(--text-primary)" />
-        </div>
+        </button>
       </div>
     </>
   );

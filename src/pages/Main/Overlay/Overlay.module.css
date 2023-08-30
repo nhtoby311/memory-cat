@@ -28,6 +28,7 @@
   align-items: center;
   transform: translateY(-50%);
   z-index: 9000;
+  pointer-events: none;
 }
 
 .bottom {
@@ -59,6 +60,7 @@
   justify-content: center;
   pointer-events: all;
   cursor: pointer;
+  backdrop-filter: blur(20px);
   transition: transform 0.2s ease-in-out;
 }
 
@@ -114,4 +116,17 @@
 
 .playerCont[data-current="true"] {
   opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .middle {
+    padding: 0 15px;
+    flex-direction: row-reverse;
+    top: 15px;
+    transform: translateY(0);
+  }
 }

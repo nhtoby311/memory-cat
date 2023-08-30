@@ -113,7 +113,7 @@ function MainGame() {
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={styles.container + " g-container"} ref={scope}>
+        <div className={"g-container " + styles.container} ref={scope}>
           {cards.map((card, ind) => (
             <motion.div className="card-stagger" key={ind}>
               <Card

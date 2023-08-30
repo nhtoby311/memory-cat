@@ -79,3 +79,16 @@
   border-radius: 50%;
   border: 2px solid var(--color-tertiary);
 }
+
+@media (max-width: 900px) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .innerCont {
+    padding: 20px;
+    padding-top: 50px;
+  }
+}
