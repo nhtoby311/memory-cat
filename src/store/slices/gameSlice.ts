@@ -79,6 +79,11 @@ export type GameState = {
   tutorialCards: Card[];
   setTutorialCards: (cards: Card[]) => void;
 
+  elapsedTime: number;
+  setElapsedTime: (elapsedTime: number) => void;
+  bestTime: number;
+  setBestTime: (bestTime: number) => void;
+
   currentPlayerTurn: "player1" | "player2" | null;
   setCurrentPlayerTurn: (player: "player1" | "player2" | null) => void;
   player1Score: number;
@@ -139,6 +144,14 @@ export const createGameSlice: StateCreator<StoreState, [], [], GameState> = (
   },
   tutorialCards: [],
   setTutorialCards: (cards: Card[]) => set({ tutorialCards: cards }),
+
+  elapsedTime: 0,
+  setElapsedTime: (elapsedTime: number) => set({ elapsedTime }),
+  bestTime: parseInt(localStorage.getItem("bestTime") || "0"),
+  setBestTime: (bestTime: number) => {
+    localStorage.setItem("bestTime", bestTime.toString());
+    set({ bestTime });
+  },
 
   currentPlayerTurn: "player1",
   setCurrentPlayerTurn: (player: "player1" | "player2" | null) =>

@@ -2,6 +2,9 @@ import { motion } from "framer-motion";
 import MenuSVG from "../../../SVG/MenuSVG";
 import useStore from "../../../store/store";
 import styles from "./Overlay.module.css";
+import useCustomStopwatch from "../../../hooks/useCustomStopwatch";
+import { useEffect } from "react";
+import { formatTime } from "../../../utils/time";
 
 export default function Overlay() {
   const gameMode = useStore((state) => state.currentGameMode);
@@ -32,10 +35,50 @@ export default function Overlay() {
 }
 
 const SingleDisplay = () => {
+  const elapsedTime = useStore((state) => state.elapsedTime);
+  const setElapsedTime = useStore((state) => state.setElapsedTime);
+  const bestTime = useStore((state) => state.bestTime);
+  const setBestTime = useStore((state) => state.setBestTime);
+
+  const stopwatch = useCustomStopwatch();
+
+  const endGame = useStore((state) => state.endGame);
+
+  const setWinner = useStore((state) => state.setWinnerData);
+
+  useEffect(() => {
+    stopwatch.start();
+    return () => {
+      stopwatch.stop();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (endGame) {
+      stopwatch.pause();
+      setWinner({ time: elapsedTime });
+
+      //First time play, no best time yet
+      if (bestTime === 0) {
+        setBestTime(elapsedTime);
+      } else {
+        if (elapsedTime < bestTime) {
+          setBestTime(elapsedTime);
+        }
+      }
+    }
+  }, [endGame]);
+
+  useEffect(() => {
+    setElapsedTime(Math.floor(stopwatch.getElapsedStartedTime() / 1000));
+  }, [stopwatch.getElapsedStartedTime()]);
+
   return (
     <div className={styles.display}>
-      <p className={styles.currentCounter}>00:20</p>
-      <p className={styles.highCounter}>Best 00:12</p>
+      <p className={styles.currentCounter}>{formatTime(elapsedTime)}</p>
+      {bestTime === 0 ? null : (
+        <p className={styles.highCounter}>Best {formatTime(bestTime)}</p>
+      )}
     </div>
   );
 };

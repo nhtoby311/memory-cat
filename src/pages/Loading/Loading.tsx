@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import styles from "./Loading.module.css";
@@ -35,6 +35,15 @@ export default function Loading() {
   // useEffect(() => {
   //   setCurrentLoading(loadingVal);
   // }, [loadingVal]);
+
+  const isFinishedTutorial = useMemo(() => {
+    return tutorialCards.filter((card) => card.isMatched === true).length === 2;
+  }, [tutorialCards]);
+
+  // useEffect(() => {
+  //   if (isFinishedTutorial) {
+  //   }
+  // }, [isFinishedTutorial]);
 
   //Handling asset image loading
   useEffect(() => {
@@ -85,10 +94,28 @@ export default function Loading() {
           ))}
         </div>
         <div className={`g-container ${styles["descrip-cont"]}`}>
-          <p>
-            Find and match the same pair of cards, by click to flip the card
-            over. Try to find the pair above to continue.
-          </p>
+          <AnimatePresence mode="wait">
+            {isFinishedTutorial ? (
+              <motion.p
+                key="done"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                Good job! Now choose a game mode below to play.
+              </motion.p>
+            ) : (
+              <motion.p
+                key="tut"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                Find and match the same pair of cards, by click to flip the card
+                over. Try to find the pair above to continue.
+              </motion.p>
+            )}
+          </AnimatePresence>
         </div>
         <div className={`g-container ${styles["percentage-cont"]}`}>
           <AnimatePresence mode="wait">

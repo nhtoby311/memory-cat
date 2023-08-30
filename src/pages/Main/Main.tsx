@@ -81,7 +81,6 @@ function MainGame() {
   const [scope, animate] = useAnimate();
 
   const endGame = useStore((state) => state.endGame);
-  const winner = useStore((state) => state.winnerData as any);
 
   // const previousCards = usePrevious(cards);
 

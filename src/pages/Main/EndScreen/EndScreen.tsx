@@ -3,6 +3,7 @@ import Modal from "../../../components/Modal/Modal";
 import useStore from "../../../store/store";
 import styles from "./EndScreen.module.css";
 import Button from "../../../components/Button/Button";
+import { formatTime } from "../../../utils/time";
 
 export default function EndScreen() {
   const gameMode = useStore((state) => state.currentGameMode);
@@ -13,10 +14,13 @@ export default function EndScreen() {
   const player1Score = useStore((state) => state.player1Score);
   const player2Score = useStore((state) => state.player2Score);
 
+  const elapsedTime = useStore((state) => state.elapsedTime);
+
   useEffect(() => {
     if (endGame) {
       if (gameMode === "single") {
-        setWinner({ time: 20 });
+        //Already set at Overlay
+        // setWinner({ time: elapsedTime });
       } else if (gameMode === "multi") {
         const playerWinner =
           player1Score > player2Score ? "player1" : "player2";
@@ -49,7 +53,7 @@ export default function EndScreen() {
           <div className={styles.innerCont}>
             <h3 className={styles.complete}>Complete</h3>
             {gameMode === "single" ? (
-              <p className={styles.content}>Time: {winner?.time}</p>
+              <p className={styles.content}>Time: {formatTime(winner?.time)}</p>
             ) : (
               <p className={styles.content}>{winner?.player} won!</p>
             )}
