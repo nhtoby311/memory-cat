@@ -52,6 +52,11 @@
   justify-content: center;
   pointer-events: all;
   cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.svgBubble:hover {
+  transform: scale(1.1);
 }
 
 .display {

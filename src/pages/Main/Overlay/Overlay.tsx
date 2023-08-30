@@ -5,6 +5,8 @@ import styles from "./Overlay.module.css";
 import useCustomStopwatch from "../../../hooks/useCustomStopwatch";
 import { useEffect } from "react";
 import { formatTime } from "../../../utils/time";
+import ShuffleSVG from "../../../SVG/ShuffleSVG";
+import HelpSVG from "../../../SVG/HelpSVG";
 
 export default function Overlay() {
   const gameMode = useStore((state) => state.currentGameMode);
@@ -28,15 +30,16 @@ export default function Overlay() {
 
       <div className={styles.bottom}>
         <div
+          className={styles.svgBubble}
           style={{ pointerEvents: "auto" }}
           onClick={() => {
             newGame(gameMode);
           }}
         >
-          Restart Game
+          <ShuffleSVG color="white" />
         </div>
         <div className={styles.svgBubble}>
-          <MenuSVG color="white" />
+          <HelpSVG color="white" />
         </div>
       </div>
     </div>
