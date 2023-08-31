@@ -6,6 +6,8 @@ export type SettingsState = {
   setCurrentTheme: (theme: any) => void;
   menuOpen: boolean;
   setMenuOpen: (menuOpen: boolean) => void;
+  helpOpen: boolean;
+  setHelpOpen: (helpOpen: boolean) => void;
 };
 
 export const createSettingsSlice: StateCreator<
@@ -18,4 +20,6 @@ export const createSettingsSlice: StateCreator<
   setCurrentTheme: (theme: any) => set({ currentTheme: theme }),
   menuOpen: false,
   setMenuOpen: (menuOpen: boolean) => set({ menuOpen: menuOpen }),
+  helpOpen: false,
+  setHelpOpen: (helpOpen: boolean) => set({ helpOpen: helpOpen }),
 });

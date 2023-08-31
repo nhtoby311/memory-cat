@@ -91,7 +91,7 @@
   width: 100%;
   color: var(--color);
   margin-bottom: 15px;
-  opacity: 0.4;
+  opacity: 0.3;
   transition: opacity 0.3s ease-in-out;
 }
 

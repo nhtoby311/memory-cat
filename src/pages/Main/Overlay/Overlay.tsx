@@ -8,6 +8,7 @@ import { formatTime } from "../../../utils/time";
 import ShuffleSVG from "../../../SVG/ShuffleSVG";
 import HelpSVG from "../../../SVG/HelpSVG";
 import Menu from "../Menu/Menu";
+import Help from "../Help/Help";
 
 export default function Overlay() {
   const gameMode = useStore((state) => state.currentGameMode);
@@ -16,6 +17,9 @@ export default function Overlay() {
 
   const menuOpen = useStore((state) => state.menuOpen);
   const setMenuOpen = useStore((state) => state.setMenuOpen);
+
+  const helpOpen = useStore((state) => state.helpOpen);
+  const setHelpOpen = useStore((state) => state.setHelpOpen);
 
   return (
     <>
@@ -36,11 +40,28 @@ export default function Overlay() {
           >
             <ShuffleSVG color="var(--text-primary)" />
           </button>
-          <button className={styles.svgBubble}>
+          <button
+            className={styles.svgBubble}
+            onClick={() => {
+              setHelpOpen(true);
+            }}
+          >
             <HelpSVG color="var(--text-primary)" />
           </button>
         </div>
       </div>
+
+      <AnimatePresence mode="wait">
+        {helpOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <Help />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence mode="wait">
         {menuOpen && (
@@ -60,6 +81,7 @@ export default function Overlay() {
           className={styles.svgBubble}
           onClick={() => {
             setMenuOpen(!menuOpen);
+            setHelpOpen(false);
           }}
         >
           <div
