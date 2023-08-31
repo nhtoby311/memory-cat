@@ -41,13 +41,13 @@
 
 .complete {
   text-align: center;
-  font-size: 55px;
+  font-size: 40px;
   font-weight: 300;
 }
 
 .content {
   text-align: center;
-  font-size: 99px;
+  font-size: 70px;
   font-weight: 600;
 }
 
@@ -57,4 +57,23 @@
   justify-content: space-between;
   align-items: center;
   gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+    height: 70%;
+  }
+
+  .complete {
+    font-size: 25px;
+  }
+
+  .content {
+    font-size: 50px;
+  }
+
+  .btnCont {
+    flex-direction: column;
+  }
 }

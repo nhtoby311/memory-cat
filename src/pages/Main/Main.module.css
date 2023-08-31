@@ -9,8 +9,14 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  gap: min(3vw, 50px);
+  gap: min(2vw, 50px);
   justify-content: center;
+}
+
+@media (max-width: 1300px) {
+  .container {
+    gap: min(2vw, 25px);
+  }
 }
 
 @media (max-width: 768px) {

@@ -8,6 +8,7 @@ html[data-theme="dark"] {
 
   --color-red: #fd4b4b;
   --color-blue: #4160ff;
+  --color-yellow: #fbff2f;
 
   --color-inverse: #00000080;
 
@@ -24,6 +25,7 @@ html[data-theme="light"] {
 
   --color-red: #fd4b4b;
   --color-blue: #4160ff;
+  --color-yellow: #e1a912;
 
   --color-inverse: #c7c7c780;
 

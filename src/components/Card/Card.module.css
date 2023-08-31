@@ -1,8 +1,8 @@
 .container {
   display: flex;
   position: relative;
-  height: 20vw;
-  width: 15vw;
+  height: 18vw;
+  width: 13vw;
 
   min-height: 100px;
   min-width: 75px;
@@ -69,4 +69,28 @@
   height: 100%;
   object-fit: cover;
   border-radius: 10px;
+}
+
+@media (max-width: 1700px) {
+  .container {
+    height: 11vw;
+    width: 8vw;
+  }
+}
+
+@media (max-width: 1300px) {
+  .container {
+    height: 13vw;
+    width: 10vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    height: 18vw;
+    width: 12vw;
+  }
+  .back {
+    padding: 8px;
+  }
 }

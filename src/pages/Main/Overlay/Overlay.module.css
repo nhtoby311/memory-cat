@@ -44,7 +44,7 @@
 }
 
 .highCounter {
-  color: #fbff2f;
+  color: var(--color-yellow);
   font-size: 19px;
   font-style: normal;
   font-weight: 400;
