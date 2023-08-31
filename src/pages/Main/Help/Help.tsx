@@ -16,10 +16,13 @@ export default function Help() {
               className={styles.svgBubble}
               onClick={() => setHelpOpen(false)}
             >
-              <CrossSVG />
+              <CrossSVG color="var(--text-primary)" />
             </div>
 
-            <div className={styles.scrollCont}>
+            <div
+              className={styles.scrollCont}
+              onWheel={(event) => event.stopPropagation()}
+            >
               <h4 className={styles.title}>How to Play</h4>
               <p className={styles.descrip}>
                 In the memory card game, your objective is to identify pairs of

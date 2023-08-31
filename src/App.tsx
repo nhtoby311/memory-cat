@@ -8,6 +8,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 
+import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
+
 // Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,5 +48,9 @@ function App() {
 export default App;
 
 function Layout({ children }: { children: React.ReactNode }) {
-  return <div className={styles.container}>{children}</div>;
+  return (
+    <ReactLenis root>
+      <div className={styles.container}>{children}</div>
+    </ReactLenis>
+  );
 }
