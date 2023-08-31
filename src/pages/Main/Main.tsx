@@ -115,7 +115,7 @@ function MainGame() {
       <div className={styles.wrapper}>
         <div className={"g-container " + styles.container} ref={scope}>
           {cards.map((card, ind) => (
-            <motion.div className="card-stagger" key={ind}>
+            <motion.div className="card-stagger" key={card.id} layout>
               <Card
                 onClickCB={() => {
                   onClickCard(card);

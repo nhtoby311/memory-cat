@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
 import useStore from "../store/store";
+import cat1 from "../assets/cat1.png";
+import cat2 from "../assets/cat2.png";
 
 const MOCK_TUTORIAL = [
   {
     id: 1,
-    url: "https://picsum.photos/id/1/200/300",
+    url: cat1,
     isFlipped: false,
     isMatched: false,
   },
   {
     id: 2,
-    url: "https://picsum.photos/id/2/200/300",
+    url: cat2,
     isFlipped: false,
     isMatched: false,
   },
 
   {
     id: 3,
-    url: "https://picsum.photos/id/1/200/300",
+    url: cat1,
     isFlipped: false,
     isMatched: false,
   },
