@@ -20,14 +20,6 @@ export default function Main() {
 
   const { isLoading, error, data, isFetching } = useQueryCatImages();
 
-  const setTheme = useStore((state) => state.setCurrentTheme);
-
-  const darkTheme = useDarkMode();
-
-  useUpdateEffect(() => {
-    setTheme(darkTheme);
-  }, [darkTheme]);
-
   useEffect(() => {
     if (data) {
       const fomatData = data.map((item: any) => {

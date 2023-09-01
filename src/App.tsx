@@ -9,6 +9,10 @@ import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 
 import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
+import NotFound from "./pages/NotFound/NotFound";
+import useStore from "./store/store";
+import useDarkMode from "./hooks/useDarkMode";
+import useUpdateEffect from "./hooks/useUpdateEffect";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -37,6 +41,7 @@ function App() {
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<Main />} />
               <Route path="loading" element={<Loading />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>
         </BrowserRouter>
@@ -48,6 +53,13 @@ function App() {
 export default App;
 
 function Layout({ children }: { children: React.ReactNode }) {
+  const setTheme = useStore((state) => state.setCurrentTheme);
+
+  const darkTheme = useDarkMode();
+
+  useUpdateEffect(() => {
+    setTheme(darkTheme);
+  }, [darkTheme]);
   return (
     <ReactLenis root>
       <div className={styles.container}>{children}</div>
