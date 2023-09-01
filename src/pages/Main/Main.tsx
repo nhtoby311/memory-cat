@@ -9,10 +9,7 @@ import styles from "./Main.module.css";
 import Card from "../../components/Card/Card";
 import { useCardGame } from "../../hooks/useCardGame";
 import useQueryCatImages from "../../hooks/useQueryCatImages";
-import usePrevious from "../../hooks/usePrevious";
 import EndScreen from "./EndScreen/EndScreen";
-import useDarkMode from "../../hooks/useDarkMode";
-import useUpdateEffect from "../../hooks/useUpdateEffect";
 
 export default function Main() {
   const gameMode = useStore((state) => state.currentGameMode);
@@ -122,7 +119,11 @@ function MainGame() {
 
       <Overlay />
 
-      {endGame && <EndScreen />}
+      {endGame && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <EndScreen />
+        </motion.div>
+      )}
     </>
   );
 }
