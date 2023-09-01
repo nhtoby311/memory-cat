@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound/NotFound";
 import useStore from "./store/store";
 import useDarkMode from "./hooks/useDarkMode";
 import useUpdateEffect from "./hooks/useUpdateEffect";
+import { useEffect } from "react";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -57,7 +58,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 
   const darkTheme = useDarkMode();
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     setTheme(darkTheme);
   }, [darkTheme]);
   return (
