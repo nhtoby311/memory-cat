@@ -20,8 +20,9 @@ export default function Help() {
             </div>
 
             <div
+              data-lenis-prevent
               className={styles.scrollCont}
-              onWheel={(event) => event.stopPropagation()}
+              // onWheel={(event) => event.stopPropagation()}
             >
               <h4 className={styles.title}>How to Play</h4>
               <p className={styles.descrip}>
