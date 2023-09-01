@@ -9,6 +9,7 @@ import ShuffleSVG from "../../../SVG/ShuffleSVG";
 import HelpSVG from "../../../SVG/HelpSVG";
 import Menu from "../Menu/Menu";
 import Help from "../Help/Help";
+import Tooltips from "../../../components/Tooltips/Tooltips";
 
 export default function Overlay() {
   const gameMode = useStore((state) => state.currentGameMode);
@@ -31,23 +32,28 @@ export default function Overlay() {
         </div>
 
         <div className={styles.bottom}>
-          <button
-            className={styles.svgBubble}
-            style={{ pointerEvents: "auto" }}
-            onClick={() => {
-              newGame(gameMode);
-            }}
-          >
-            <ShuffleSVG color="var(--text-primary)" />
-          </button>
-          <button
-            className={styles.svgBubble}
-            onClick={() => {
-              setHelpOpen(true);
-            }}
-          >
-            <HelpSVG color="var(--text-primary)" />
-          </button>
+          <Tooltips content="Shuffle" position="right">
+            <button
+              className={styles.svgBubble}
+              style={{ pointerEvents: "auto" }}
+              onClick={() => {
+                newGame(gameMode);
+              }}
+            >
+              <ShuffleSVG color="var(--text-primary)" />
+            </button>
+          </Tooltips>
+
+          <Tooltips content="Help" position="left">
+            <button
+              className={styles.svgBubble}
+              onClick={() => {
+                setHelpOpen(true);
+              }}
+            >
+              <HelpSVG color="var(--text-primary)" />
+            </button>
+          </Tooltips>
         </div>
       </div>
 
@@ -77,22 +83,24 @@ export default function Overlay() {
 
       <div className={styles.middle}>
         <div></div>
-        <button
-          className={styles.svgBubble}
-          onClick={() => {
-            setMenuOpen(!menuOpen);
-            setHelpOpen(false);
-          }}
-        >
-          <div
-            className={styles.menuIcon}
-            data-active={menuOpen ? "true" : "false"}
+        <Tooltips position="left" content="Menu">
+          <button
+            className={styles.svgBubble}
+            onClick={() => {
+              setMenuOpen(!menuOpen);
+              setHelpOpen(false);
+            }}
           >
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </button>
+            <div
+              className={styles.menuIcon}
+              data-active={menuOpen ? "true" : "false"}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </button>
+        </Tooltips>
       </div>
     </>
   );
