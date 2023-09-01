@@ -38,10 +38,12 @@
 
 .innerCont h1 {
   text-align: center;
+  font-size: 42px;
 }
 
 .innerCont h2 {
   text-align: center;
+  font-size: 28px;
 }
 
 .innerCont p {
