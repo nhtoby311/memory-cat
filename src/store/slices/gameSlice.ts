@@ -182,7 +182,7 @@ export const createGameSlice: StateCreator<StoreState, [], [], GameState> = (
 
   newGame: (gameMode) => {
     const restartMatchedCardsAndShuffled = get()
-      .cards.map((card) => ({ ...card, isMatched: false }))
+      .cards.map((card) => ({ ...card, isMatched: false, isFlipped: false }))
       .sort(() => Math.random() - 0.5);
 
     return set({
