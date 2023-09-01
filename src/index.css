@@ -32,26 +32,13 @@ button {
   width: 7px;
 }
 
-*::-webkit-scrollbar-track,
-*[data-theme="dark"]::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   /* box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
   border-radius: 10px;
-  background-color: rgba(20, 34, 34, 0.293);
+  background-color: var(--color-primary);
 }
 
-*::-webkit-scrollbar-thumb,
-*[data-theme="dark"]::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: var(--color-red);
-}
-
-*[data-theme="light"]::-webkit-scrollbar-track {
-  /* box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
-  border-radius: 10px;
-  background-color: #dbdbdb;
-}
-
-*[data-theme="light"]::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #b7b8bf;
 }
