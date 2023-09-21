@@ -1,6 +1,7 @@
 # Memory Card/Cat
 
-![image](https://github.com/nhtoby311/memory-card/assets/52330522/e0f943a9-83d6-4d0b-8b16-0e45e8f6c75f)
+![image](https://github.com/nhtoby311/memory-cat/assets/52330522/c3e49937-6083-4205-a59f-9fd89d45dfb5)
+
 
 ## Docs:
 https://www.craft.me/s/qtICvSh3UdkxTk
